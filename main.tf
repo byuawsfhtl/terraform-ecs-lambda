@@ -14,7 +14,7 @@ module "acs" {
 
 # ========== ECS ==========
 module "ecs_fargate" {
-  source = "github.com/byuawsfhtl/terraform-ecs-fargate"
+  source = "github.com/byuawsfhtl/terraform-ecs-fargate?ref=prd"
 
   app_name = var.project_name
   primary_container_definition = {
@@ -34,7 +34,7 @@ module "ecs_fargate" {
 
 # ========== API ==========
 module "lambda_api" {
-  source = "github.com/byuawsfhtl/terraform-lambda-api"
+  source = "github.com/byuawsfhtl/terraform-lambda-api?ref=prd"
 
   project_name                = var.project_name
   app_name                    = var.app_name
