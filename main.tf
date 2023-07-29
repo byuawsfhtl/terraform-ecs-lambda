@@ -36,15 +36,15 @@ module "ecs_fargate" {
 module "lambda_api" {
   source = "github.com/byuawsfhtl/terraform-lambda-api"
 
-  project_name  = var.project_name
-  app_name      = var.app_name
-  domain        = local.domain
-  url           = local.url
-  api_url       = local.api_url
-  ecr_repo_name = var.ecr_repo_name
-  image_tag     = "lambda-${var.image_tag}"
+  project_name                = var.project_name
+  app_name                    = var.app_name
+  domain                      = local.domain
+  url                         = local.url
+  api_url                     = local.api_url
+  ecr_repo_name               = var.ecr_repo_name
+  image_tag                   = "lambda-${var.image_tag}"
   lambda_function_definitions = var.lambda_function_definitions
-  function_policies = concat(var.lambda_policies, [aws_iam_policy.ecs_policy])
+  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy])
 }
 
 # ========== IAM Policies ==========

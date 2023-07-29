@@ -1,33 +1,33 @@
 variable "project_name" {
-    type = string
-    description = "The name of the project in TitleCase."
+  type        = string
+  description = "The name of the project in TitleCase."
 }
 variable "app_name" {
-    type = string
-    description = "The name of the project in kebab-case."
+  type        = string
+  description = "The name of the project in kebab-case."
 }
 
 variable "env" {
-    type = string
-    description = "The branch being deployed."
+  type        = string
+  description = "The branch being deployed."
 }
 
 variable "ecr_repo_name" {
-    type = string
-    description = "The name of the ECR repository that contains the image for the lambda functions."
+  type        = string
+  description = "The name of the ECR repository that contains the image for the lambda functions."
 }
 variable "image_tag" {
-    type = string
-    description = "The image tag for the Docker images (the timestamp)."
+  type        = string
+  description = "The image tag for the Docker images (the timestamp)."
 }
 
 variable "ecs_command" {
-    type = list(string)
-    description = "The entry point for the Docker image used on the ECS task."
-    default = []
+  type        = list(string)
+  description = "The entry point for the Docker image used on the ECS task."
+  default     = []
 }
 variable "ecs_policies" {
-    type        = list(string)
+  type        = list(string)
   description = "List of IAM Policy ARNs to attach to the ECS task."
   default     = []
 }
