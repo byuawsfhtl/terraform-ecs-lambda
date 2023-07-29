@@ -14,7 +14,7 @@ variable "env" {
 
 variable "ecr_repo_name" {
   type        = string
-  description = "The name of the ECR repository that contains the image for the lambda functions."
+  description = "The name of the ECR repository that contains the Docker images."
 }
 variable "image_tag" {
   type        = string
