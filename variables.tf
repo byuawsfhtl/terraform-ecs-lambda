@@ -13,8 +13,11 @@ variable "env" {
 }
 
 variable "ecr_repo" {
-  type        = string
-  description = "The ECR repository that contains the Docker images."
+  type = object({
+    name           = string,
+    repository_url = string
+  })
+  description = "The ECR repository that contains the image for the lambda functions."
 }
 variable "image_tag" {
   type        = string
