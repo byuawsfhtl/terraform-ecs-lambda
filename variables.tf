@@ -12,9 +12,9 @@ variable "env" {
   description = "The branch being deployed."
 }
 
-variable "ecr_repo_name" {
+variable "ecr_repo" {
   type        = string
-  description = "The name of the ECR repository that contains the Docker images."
+  description = "The ECR repository that contains the Docker images."
 }
 variable "image_tag" {
   type        = string

@@ -4,10 +4,6 @@ locals {
   api_url = "api.${local.url}"
 }
 
-data "aws_ecr_repository" "ecr_repo" {
-  name = var.ecr_repo_name
-}
-
 module "acs" {
   source = "github.com/byu-oit/terraform-aws-acs-info?ref=v4.0.0"
 }
@@ -19,7 +15,7 @@ module "ecs_fargate" {
   app_name = var.project_name
   primary_container_definition = {
     name                  = "${var.project_name}Container"
-    image                 = "${data.aws_ecr_repository.ecr_repo.repository_url}:${var.app_name}-ecs-${var.image_tag}"
+    image                 = "${var.ecr_repo.repository_url}:${var.app_name}-ecs-${var.image_tag}"
     command               = var.ecs_command
     environment_variables = {}
     secrets               = {}
@@ -41,7 +37,7 @@ module "lambda_api" {
   domain                      = local.domain
   url                         = local.url
   api_url                     = local.api_url
-  ecr_repo_name               = var.ecr_repo_name
+  ecr_repo                    = var.ecr_repo
   image_tag                   = "lambda-${var.image_tag}"
   lambda_function_definitions = var.lambda_function_definitions
   function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy.arn])
