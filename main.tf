@@ -44,7 +44,7 @@ module "lambda_api" {
   ecr_repo_name               = var.ecr_repo_name
   image_tag                   = "lambda-${var.image_tag}"
   lambda_function_definitions = var.lambda_function_definitions
-  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy])
+  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy.arn])
 }
 
 # ========== IAM Policies ==========
