@@ -39,7 +39,7 @@ module "lambda_api" {
   api_url                     = local.api_url
   ecr_repo                    = var.ecr_repo
   image_tag                   = "lambda-${var.image_tag}"
-  lambda_function_definitions = var.lambda_function_definitions
+  lambda_endpoint_definitions = var.lambda_endpoint_definitions
   function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy.arn])
 }
 
