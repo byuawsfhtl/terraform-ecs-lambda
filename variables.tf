@@ -38,10 +38,13 @@ variable "ecs_policies" {
 variable "lambda_function_definitions" {
   type = list(object({
     path_part       = string
-    http_method     = string
-    command         = list(string)
     allowed_headers = optional(string)
-    timeout         = optional(number)
+
+    method_definitions = list(object({
+      http_method = string
+      command     = list(string)
+      timeout     = optional(number)
+    }))
   }))
   description = "The definitions for each lambda function."
 }
