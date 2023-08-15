@@ -54,7 +54,8 @@ resource "aws_iam_policy" "ecs_policy" {
       {
         Effect : "Allow",
         Action : [
-          "ecs:RunTask"
+          "ecs:RunTask",
+          "ecs:ListTasks"
         ],
         Resource : [
           "${module.ecs_fargate.task_definition.arn}"
