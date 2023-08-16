@@ -60,7 +60,8 @@ resource "aws_iam_policy" "ecs_policy" {
         Effect : "Allow",
         Action : [
           "ecs:ListTasks",
-          "ecs:ListTaskDefinitions"
+          "ecs:ListTaskDefinitions",
+          "ec2:DescribeSecurityGroups"
         ],
         Resource : "*"
       }
