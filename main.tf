@@ -45,7 +45,7 @@ module "lambda_api" {
 
 # ========== IAM Policies ==========
 resource "aws_iam_policy" "ecs_task_policy" {
-  name        = "${var.project_name}-ecs"
+  name        = "${var.project_name}-ecs-task"
   description = "Permission to run the ${var.project_name} ecs task"
 
   policy = jsonencode({
@@ -66,7 +66,7 @@ resource "aws_iam_policy" "ecs_task_policy" {
 }
 
 resource "aws_iam_policy" "ecs_cluster_policy" {
-  name        = "${var.project_name}-ecs"
+  name        = "${var.project_name}-ecs-cluster"
   description = "Permission to list the ${var.project_name} ecs tasks"
 
   policy = jsonencode({
