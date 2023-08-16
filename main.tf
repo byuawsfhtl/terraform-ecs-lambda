@@ -40,12 +40,12 @@ module "lambda_api" {
   ecr_repo                    = var.ecr_repo
   image_tag                   = "lambda-${var.image_tag}"
   lambda_endpoint_definitions = var.lambda_endpoint_definitions
-  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_task_policy.arn, aws_iam_policy.ecs_cluster_policy.arn])
+  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy.arn])
 }
 
 # ========== IAM Policies ==========
-resource "aws_iam_policy" "ecs_task_policy" {
-  name        = "${var.project_name}-ecs-task"
+resource "aws_iam_policy" "ecs_policy" {
+  name        = "${var.project_name}-ecs"
   description = "Permission to run the ${var.project_name} ecs task"
 
   policy = jsonencode({
@@ -53,30 +53,12 @@ resource "aws_iam_policy" "ecs_task_policy" {
     Statement : [
       {
         Effect : "Allow",
-        Action : [
-          "ecs:RunTask"
-        ],
-        Resource : [
-          "${module.ecs_fargate.task_definition.arn}",
-        ]
-
-      }
-    ]
-  })
-}
-
-resource "aws_iam_policy" "ecs_cluster_policy" {
-  name        = "${var.project_name}-ecs-cluster"
-  description = "Permission to list the ${var.project_name} ecs tasks"
-
-  policy = jsonencode({
-    Version : "2012-10-17",
-    Statement : [
+        Action : ["ecs:RunTask"],
+        Resource : ["${module.ecs_fargate.task_definition.arn}"]
+      },
       {
         Effect : "Allow",
-        Action : [
-          "ecs:ListTasks"
-        ],
+        Action : ["ecs:ListTasks"],
         Resource : "*"
       }
     ]
