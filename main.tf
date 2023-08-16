@@ -58,7 +58,10 @@ resource "aws_iam_policy" "ecs_policy" {
       },
       {
         Effect : "Allow",
-        Action : "ecs:ListTasks",
+        Action : [
+          "ecs:ListTasks",
+          "ecs:ListTaskDefinitions"
+        ],
         Resource : "*"
       }
     ]
