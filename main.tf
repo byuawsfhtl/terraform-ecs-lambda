@@ -61,7 +61,8 @@ resource "aws_iam_policy" "ecs_policy" {
         Action : [
           "ecs:ListTasks",
           "ecs:ListTaskDefinitions",
-          "ec2:DescribeSecurityGroups"
+          "ec2:DescribeSecurityGroups",
+          "iam:PassRole"
         ],
         Resource : "*"
       }
