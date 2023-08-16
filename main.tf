@@ -58,7 +58,8 @@ resource "aws_iam_policy" "ecs_policy" {
           "ecs:ListTasks"
         ],
         Resource : [
-          "${module.ecs_fargate.task_definition.arn}"
+          "${module.ecs_fargate.task_definition.arn}",
+          "${module.ecs_fargate.ecs_cluster.arn}"
         ]
 
       }
