@@ -25,7 +25,7 @@ module "ecs_fargate" {
   private_subnet_ids            = module.acs.private_subnet_ids
   role_permissions_boundary_arn = module.acs.role_permissions_boundary.arn
 
-  task_policies = var.ecs_policies
+  task_policies = concat(var.ecs_policies, [aws_iam_policy.s3_data_policy.arn])
 }
 
 # ========== API ==========
@@ -40,12 +40,17 @@ module "lambda_api" {
   ecr_repo                    = var.ecr_repo
   image_tag                   = "lambda-${var.image_tag}"
   lambda_endpoint_definitions = var.lambda_endpoint_definitions
-  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_policy.arn])
+  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_template_policy.arn, aws_iam_policy.s3_data_policy.arn])
+}
+
+# ========== S3 Data Bucket ==========
+resource "aws_s3_bucket" "data-bucket" {
+  bucket = "${var.app_name}-data-${var.env}"
 }
 
 # ========== IAM Policies ==========
-resource "aws_iam_policy" "ecs_policy" {
-  name        = "${var.project_name}-ecs"
+resource "aws_iam_policy" "ecs_template_policy" {
+  name        = "${var.project_name}-template-ecs"
   description = "Permission to run the ${var.project_name} ecs task"
 
   policy = jsonencode({
@@ -61,10 +66,37 @@ resource "aws_iam_policy" "ecs_policy" {
         Action : [
           "ecs:ListTasks",
           "ecs:ListTaskDefinitions",
+          "ecs:DescribeTasks",
           "ec2:DescribeSecurityGroups",
           "iam:PassRole"
         ],
+        # TODO: specify actual resources rather than assume all
         Resource : "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "s3_data_policy" {
+  name        = "${var.project_name}-data-s3"
+  description = "Access to the S3 data bucket"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        Effect : "Allow",
+        Action : [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject",
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
+        Resource : [
+          "${resource.aws_s3_bucket.data-bucket.arn}",
+          "${resource.aws_s3_bucket.data-bucket.arn}/*"
+        ]
       }
     ]
   })
