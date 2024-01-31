@@ -34,6 +34,16 @@ variable "ecs_policies" {
   description = "List of IAM Policy ARNs to attach to the ECS task."
   default     = []
 }
+variable "ecs_cpu" {
+  type        = number
+  description = "The number of CPU units to reserve for the task."
+  default     = 256
+}
+variable "ecs_memory" {
+  type        = number
+  description = "The amount of memory (in MiB) to reserve for the task."
+  default     = 512
+}
 
 variable "lambda_endpoint_definitions" {
   type = list(object({
