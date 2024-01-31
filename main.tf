@@ -25,6 +25,9 @@ module "ecs_fargate" {
   private_subnet_ids            = module.acs.private_subnet_ids
   role_permissions_boundary_arn = module.acs.role_permissions_boundary.arn
 
+  task_cpu    = var.ecs_cpu
+  task_memory = var.ecs_memory
+
   task_policies = concat(var.ecs_policies, [aws_iam_policy.s3_data_policy.arn])
 }
 
