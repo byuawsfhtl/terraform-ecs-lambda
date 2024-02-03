@@ -33,7 +33,7 @@ variable "ecs_environment_variables" {
   type        = map(string)
   description = "The environment variables to set on the ECS task."
   default = {
-    "env" = var.env
+    "ENV" = var.env
   }
 }
 variable "ecs_policies" {
@@ -56,7 +56,7 @@ variable "lambda_environment_variables" {
   type        = map(string)
   description = "The environment variables to set on the Lambda functions."
   default = {
-    "env" = var.env
+    "ENV" = var.env
   }
 }
 variable "lambda_endpoint_definitions" {
