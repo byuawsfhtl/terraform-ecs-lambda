@@ -17,7 +17,7 @@ module "ecs_fargate" {
     name                  = "${var.project_name}Container"
     image                 = "${var.ecr_repo.repository_url}:${var.app_name}-ecs-${var.image_tag}"
     command               = var.ecs_command
-    environment_variables = {}
+    environment_variables = var.ecs_environment_variables
     secrets               = {}
   }
   event_role_arn                = module.acs.power_builder_role.arn
@@ -35,15 +35,16 @@ module "ecs_fargate" {
 module "lambda_api" {
   source = "github.com/byuawsfhtl/terraform-lambda-api?ref=prd"
 
-  project_name                = var.project_name
-  app_name                    = var.app_name
-  domain                      = local.domain
-  url                         = local.url
-  api_url                     = local.api_url
-  ecr_repo                    = var.ecr_repo
-  image_tag                   = "lambda-${var.image_tag}"
-  lambda_endpoint_definitions = var.lambda_endpoint_definitions
-  function_policies           = concat(var.lambda_policies, [aws_iam_policy.ecs_template_policy.arn, aws_iam_policy.s3_data_policy.arn])
+  project_name                 = var.project_name
+  app_name                     = var.app_name
+  domain                       = local.domain
+  url                          = local.url
+  api_url                      = local.api_url
+  ecr_repo                     = var.ecr_repo
+  image_tag                    = "lambda-${var.image_tag}"
+  lambda_environment_variables = var.lambda_environment_variables
+  lambda_endpoint_definitions  = var.lambda_endpoint_definitions
+  function_policies            = concat(var.lambda_policies, [aws_iam_policy.ecs_template_policy.arn, aws_iam_policy.s3_data_policy.arn])
 }
 
 # ========== S3 Data Bucket ==========

@@ -29,6 +29,13 @@ variable "ecs_command" {
   description = "The entry point for the Docker image used on the ECS task."
   default     = []
 }
+variable "ecs_environment_variables" {
+  type        = map(string)
+  description = "The environment variables to set on the ECS task."
+  default = {
+    "ENV" = var.env
+  }
+}
 variable "ecs_policies" {
   type        = list(string)
   description = "List of IAM Policy ARNs to attach to the ECS task."
@@ -45,6 +52,13 @@ variable "ecs_memory" {
   default     = 512
 }
 
+variable "lambda_environment_variables" {
+  type        = map(string)
+  description = "The environment variables to set on the Lambda functions."
+  default = {
+    "ENV" = var.env
+  }
+}
 variable "lambda_endpoint_definitions" {
   type = list(object({
     path_part       = string
