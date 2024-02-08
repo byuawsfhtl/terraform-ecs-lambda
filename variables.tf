@@ -32,6 +32,7 @@ variable "ecs_command" {
 variable "ecs_environment_variables" {
   type        = map(string)
   description = "The environment variables to set on the ECS task."
+  default     = {}
 }
 variable "ecs_policies" {
   type        = list(string)
@@ -52,6 +53,7 @@ variable "ecs_memory" {
 variable "lambda_environment_variables" {
   type        = map(string)
   description = "The environment variables to set on the Lambda functions."
+  default     = {}
 }
 variable "lambda_endpoint_definitions" {
   type = list(object({
