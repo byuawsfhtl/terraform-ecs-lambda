@@ -35,8 +35,8 @@ module "ecs_fargate" {
 module "lambda_api" {
   source = "github.com/byuawsfhtl/terraform-lambda-api?ref=prd"
 
-  project_name                 = var.project_name
-  app_name                     = var.app_name
+  project_name                 = "${var.project_name}-ecs-lambda"
+  app_name                     = "${var.app_name}-ecs-lambda"
   domain                       = local.domain
   url                          = local.url
   api_url                      = local.api_url
