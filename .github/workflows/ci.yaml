@@ -18,3 +18,10 @@ jobs:
     steps:
         - name: Check Meds
           uses: byuawsfhtl/MedsAction@v1.0.0
+  
+  format:
+    name: Terraform Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Terraform Formatting
+        run: terraform fmt -check -recursive
