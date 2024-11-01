@@ -33,7 +33,7 @@ module "ecs_fargate" {
 
 # ========== API ==========
 module "lambda_api" {
-  source = "github.com/byuawsfhtl/terraform-lambda-api?ref=output-fixes"
+  source = "github.com/byuawsfhtl/terraform-lambda-api?ref=dev"
 
   project_name                 = var.project_name
   app_name                     = var.app_name
