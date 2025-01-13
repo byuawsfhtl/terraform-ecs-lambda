@@ -23,5 +23,10 @@ jobs:
     name: Terraform Format
     runs-on: ubuntu-latest
     steps:
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+            terraform_version: ${{ env.tf_version }}
+
       - name: Check Terraform Formatting
         run: terraform fmt -check -recursive
